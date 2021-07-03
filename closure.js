@@ -104,3 +104,57 @@ function getNumber() {
 
 const func = getNumber();
 func(); // 10
+
+
+
+/* So, what is closure useful for? */
+
+/* 1. Function factories
+One powerful use of closures is to use the outer function
+as a factory for creating functions that are somehow related. */
+
+function dwightJob(title) {
+    return function(prefix) {
+        return prefix + ' ' + title;
+    };
+}
+
+var sales = dwightJob('Salesman');
+var manager = dwightJob('Manager');
+
+alert(sales('Top'));  // Top Salesman
+alert(manager('Assistant to the Regional')); // Assistant to the Regional Manager
+alert(manager('Regional')); // Regional Manager
+
+/* 2. Namespacing private functions
+Many object-oriented languages provide the ability to declare methods
+as either public or private. JavaScript doesn’t have this functionality
+built in, but it does allow to emulate this functionality through
+the use of closures, which is known as the module pattern. */
+
+var dwightSalary = (function() {
+    var salary = 60000;
+    function changeBy(amount) {
+        salary += amount;
+    }
+    return {
+        raise: function() {
+            changeBy(5000);
+        },
+        lower: function() {
+            changeBy(-5000);
+        },
+        currentAmount: function() {
+            return salary;
+        }
+    }; 
+})();
+
+alert(dwightSalary.currentAmount()); // $60,000
+dwightSalary.raise();
+alert(dwightSalary.currentAmount()); // $65,000
+dwightSalary.lower();
+dwightSalary.lower();
+alert(dwightSalary.currentAmount()); // $55,000
+
+dwightSalary.changeBy(10000) // TypeError: undefined is not a function
