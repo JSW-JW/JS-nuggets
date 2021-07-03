@@ -58,3 +58,29 @@ getData(userInfo)
   .then(parseValue)
   .then(auth)
   .then(diaplay);
+
+
+// 4. Making the code more like a program we're used to
+// async & await
+
+async function logTodoTitle() {
+    var user = await fetchUser();
+    if (user.id === 1) {
+        var todo = await fetchTodo();
+        console.log(todo.title);
+    }
+}
+
+// 4-1. async & await handling error
+
+async function logTodoTitle() {
+    try {
+        var user = await fetchUser();
+        if (user.id === 1) {
+        var todo = await fetchTodo();
+        console.log(todo.title); // delectus aut autem
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
