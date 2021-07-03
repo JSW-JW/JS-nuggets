@@ -11,6 +11,9 @@ even after the function has finished.
 
 /* 
 2. How Closures work?
+
+// keywords: execution context + lexical environment 
+
 A lexical environment is a data structure that holds identifier-variable mapping.
 (here identifier refers to the name of variables/functions, and the variable 
 is the reference to actual object [including function type object] or primitive value).
@@ -28,6 +31,18 @@ lexicalEnvironment = {
     <identifier> : <value>
   }
   outer: < Reference to the parent lexical environment>
+}
+
+When the JavaScript engine creates a global execution context to execute
+global code, it also creates a new lexical environment to store the variables
+and functions defined in the global scope. So the lexical environment
+for the global scope will look like this:
+
+functionLexicalEnvironment = {
+  environmentRecord: {
+      b    : 25,
+  }
+  outer: <globalLexicalEnvironment>
 }
 
 Let's see with examples.
